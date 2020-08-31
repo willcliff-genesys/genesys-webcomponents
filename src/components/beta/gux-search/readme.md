@@ -55,6 +55,7 @@ Type: `Promise<void>`
 
  - [gux-advanced-dropdown](../../stable/gux-advanced-dropdown)
  - [gux-command-palette-beta](../gux-command-palette)
+ - [gux-tag-popover-beta](../gux-tag-popover-beta)
 
 ### Depends on
 
@@ -69,6 +70,7 @@ graph TD;
   gux-text-field --> gux-icon
   gux-advanced-dropdown --> gux-search-beta
   gux-command-palette-beta --> gux-search-beta
+  gux-tag-popover-beta --> gux-search-beta
   style gux-search-beta fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

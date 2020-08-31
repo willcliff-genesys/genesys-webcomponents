@@ -253,6 +253,18 @@
       "icon-name": "text"
     }
   },
+  "gux-tag-popover-beta": {
+    "attributes": {
+      "disabled": "checkbox",
+      "no-filter": "checkbox",
+      "filter-debounce-timeout": "text",
+      "placeholder": "text"
+    },
+    "events": {
+      "input": "Item from dropdown selected",
+      "filter": "Filter value changed"
+    }
+  },
   "gux-text-field": {
     "attributes": {
       "value": "text",
