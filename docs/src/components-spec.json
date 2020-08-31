@@ -253,7 +253,7 @@
       "icon-name": "text"
     }
   },
-  "gux-tag-popover-beta": {
+  "gux-tag-popover": {
     "attributes": {
       "disabled": "checkbox",
       "no-filter": "checkbox",

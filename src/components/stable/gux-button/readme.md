@@ -21,7 +21,7 @@ You can choose between two type (secondary and primary).
 
  - [gux-action-button](../gux-action-button)
  - [gux-pagination-buttons](../gux-pagination/gux-pagination-buttons)
- - [gux-tag-popover-beta](../../beta/gux-tag-popover-beta)
+ - [gux-tag-popover-beta](../../beta/gux-tag-popover)
 
 ### Graph
 ```mermaid

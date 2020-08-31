@@ -39,7 +39,7 @@
  - [gux-tab](../../beta/gux-tabs/gux-tab)
  - [gux-tab-dropdown-option](../../beta/gux-tabs/gux-tab-dropdown-option)
  - [gux-tabs-beta](../../beta/gux-tabs)
- - [gux-tag-popover-beta](../../beta/gux-tag-popover-beta)
+ - [gux-tag-popover-beta](../../beta/gux-tag-popover)
  - [gux-text-field](../gux-text-field)
 
 ### Graph

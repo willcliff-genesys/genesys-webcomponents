@@ -55,7 +55,7 @@ Type: `Promise<void>`
 
  - [gux-advanced-dropdown](../../stable/gux-advanced-dropdown)
  - [gux-command-palette-beta](../gux-command-palette)
- - [gux-tag-popover-beta](../gux-tag-popover-beta)
+ - [gux-tag-popover-beta](../gux-tag-popover)
 
 ### Depends on
 
