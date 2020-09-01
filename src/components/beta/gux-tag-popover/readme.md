@@ -19,6 +19,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 | Event    | Description                                             | Type                  |
 | -------- | ------------------------------------------------------- | --------------------- |
+| `change` |                                                         | `CustomEvent<string>` |
 | `filter` | Fires when the filter of the advanced dropdown changes. | `CustomEvent<string>` |
 | `input`  | Fires when the value of the advanced dropdown changes.  | `CustomEvent<string>` |
 
@@ -50,19 +51,14 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [gux-button](../../stable/gux-button)
 - [gux-icon](../../stable/gux-icon)
-- [gux-search-beta](../gux-search)
+- [gux-button](../../stable/gux-button)
 
 ### Graph
 ```mermaid
 graph TD;
-  gux-tag-popover-beta --> gux-button
   gux-tag-popover-beta --> gux-icon
-  gux-tag-popover-beta --> gux-search-beta
-  gux-search-beta --> gux-text-field
-  gux-search-beta --> gux-icon
-  gux-text-field --> gux-icon
+  gux-tag-popover-beta --> gux-button
   style gux-tag-popover-beta fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

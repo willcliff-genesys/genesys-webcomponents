@@ -21,6 +21,7 @@
  - [gux-command-palette-beta](../../beta/gux-command-palette)
  - [gux-list-item](../gux-list/list-item)
  - [gux-option](../gux-dropdown/gux-option)
+ - [gux-tag-popover-option](../../beta/gux-tag-popover/tag-popover-option)
 
 ### Graph
 ```mermaid
@@ -28,6 +29,7 @@ graph TD;
   gux-command-palette-beta --> gux-text-highlight
   gux-list-item --> gux-text-highlight
   gux-option --> gux-text-highlight
+  gux-tag-popover-option --> gux-text-highlight
   style gux-text-highlight fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

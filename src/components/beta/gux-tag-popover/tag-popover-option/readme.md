@@ -10,9 +10,7 @@
 | Property   | Attribute  | Description                                                                                                                                                                                                          | Type      | Default     |
 | ---------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------- | ----------- |
 | `disabled` | `disabled` | If this Boolean attribute is set, this option is not checkable. It won't receive any browsing events, like mouse clicks or focus-related ones.                                                                       | `boolean` | `undefined` |
-| `filtered` | `filtered` | If this Boolean attribute is set, the option is not visible to the select control. This does not mean that it clears the selection if it was previously selected.  Should only be used by internal users.            | `boolean` | `undefined` |
-| `selected` | `selected` | If present, this Boolean attribute indicates that the option is currently selected.                                                                                                                                  | `boolean` | `undefined` |
-| `text`     | `text`     |                                                                                                                                                                                                                      | `string`  | `undefined` |
+| `text`     | `text`     | The content of this attribute represents the value to be displayed, If this attribute is omitted, the value is taken from the text content of the slot. This attribute takes precedence over slot value              | `string`  | `undefined` |
 | `value`    | `value`    | The content of this attribute represents the value to be submitted on 'input' changes, should this option be selected. If this attribute is omitted, the value is taken from the text content of the option element. | `string`  | `undefined` |
 
 
@@ -20,20 +18,11 @@
 
 | Event             | Description                             | Type                  |
 | ----------------- | --------------------------------------- | --------------------- |
+| `onFocus`         | Occurs when the item has been focused.  | `CustomEvent<string>` |
 | `selectedChanged` | Occurs when the item has been selected. | `CustomEvent<string>` |
 
 
 ## Methods
-
-### `getDisplayedValue() => Promise<string>`
-
-Gets the value rendered by the drop down item.
-
-#### Returns
-
-Type: `Promise<string>`
-
-
 
 ### `shouldFilter(searchInput: string) => Promise<boolean>`
 
@@ -45,6 +34,19 @@ Type: `Promise<boolean>`
 
 
 
+
+## Dependencies
+
+### Depends on
+
+- [gux-text-highlight](../../../stable/gux-text-highlight)
+
+### Graph
+```mermaid
+graph TD;
+  gux-tag-popover-option --> gux-text-highlight
+  style gux-tag-popover-option fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

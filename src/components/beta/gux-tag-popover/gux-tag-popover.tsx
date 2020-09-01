@@ -65,15 +65,28 @@ export class GuxTagPopover {
 
   @State()
   opened: boolean;
+  dropdownOpened: boolean = false;
   value: string;
   currentlySelectedOption: HTMLGuxTagPopoverOptionElement;
   selectionOptions: HTMLGuxTagPopoverOptionElement[];
+
+  @State()
+  tags = ['1', '2', '44'];
+
+  @State()
+  inputValue: string = '';
 
   @Watch('disabled')
   watchValue(newValue: boolean) {
     if (this.opened && newValue) {
       this.closeDropdown(false);
     }
+  }
+
+  @Event()
+  change: EventEmitter<string>;
+  emitChange(value: string) {
+    this.change.emit(value);
   }
 
   /**
@@ -96,7 +109,7 @@ export class GuxTagPopover {
   @Listen('focusout')
   onFocusOut(e: FocusEvent) {
     if (!e.relatedTarget || !this.root.contains(e.relatedTarget as Node)) {
-      this.closeDropdown(false);
+      // this.closeDropdown(false); TODO
     }
   }
 
@@ -107,24 +120,35 @@ export class GuxTagPopover {
   componentDidLoad() {
     this.selectionOptions = this.getSelectionOptions();
     for (const option of this.selectionOptions) {
-      if (option.selected) {
-        this.currentlySelectedOption = option;
-      }
-
-      option.addEventListener('selectedChanged', async () => {
-        this.value = await option.getDisplayedValue();
-        this.input.emit(option.value);
-        this.closeDropdown(true);
-
-        if (this.currentlySelectedOption) {
-          this.currentlySelectedOption.selected = false;
-        }
-        this.currentlySelectedOption = option;
+      option.addEventListener('selectedChanged', () => {
+        this.inputValue = '1'; // TODO fix
+        this.inputValue = '';
+        this.dropdownOpened = false;
+        this.tags.push(option.text);
       });
     }
   }
 
   render() {
+    const tags = [];
+    this.tags.map((tag, index) => {
+      const ar = (
+        <div class="gux-tag-popover-chip">
+          <div class="gux-tag-popover-chip-text">{tag}</div>
+          <div
+            class="gux-tag-popover-chip-icon-wrap"
+            onClick={() => this.deleteTag(index)}
+          >
+            <gux-icon
+              decorative
+              icon-name="ic-close"
+              class="gux-tag-popover-chip-icon"
+            />
+          </div>
+        </div>
+      );
+      tags.push(ar);
+    });
     return (
       <div
         class={`gux-tag-popover 
@@ -147,29 +171,64 @@ export class GuxTagPopover {
           <div class="gux-tag-popover-menu-container">
             <div class="gux-tag-popover-search-container">
               <b class="gux-tag-popover-title">{this.i18n('searchTitle')}</b>
-              <gux-search-beta
-                ref={el =>
-                  (this.searchElement = el as HTMLGuxSearchBetaElement)
-                }
-                class="gux-light-theme"
-                srLabel={this.i18n('searchTitle')}
-                dynamic-search="true"
-                onInput={e => e.stopPropagation()}
-                onSearch={e => this.searchRequested(e)}
-                searchTimeout={this.filterDebounceTimeout}
-              />
-            </div>
-
-            <div
-              class="gux-tag-popover-options"
-              onKeyDown={e => this.optionsKeyDown(e)}
-            >
-              <slot />
+              <div
+                class={`gux-tag-popover-chip-container ${
+                  this.dropdownOpened ? 'active' : ''
+                }`}
+              >
+                {tags}
+                <div class="gux-tag-popover-input-container">
+                  <input
+                    onFocus={() => {
+                      this.dropdownOpened = true;
+                      this.inputValue = '1'; // TODO fix
+                      this.inputValue = '';
+                    }}
+                    class="gux-tag-popover-input"
+                    value={this.inputValue}
+                    onKeyDown={e => this.addTag(e)}
+                  />
+                  <div
+                    class={`gux-tag-popover-dropdown gux-tag-popover-options opened ${
+                      this.dropdownOpened ? 'opened' : ''
+                    }`}
+                  >
+                    <slot />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     );
+  }
+
+  updateValue(event: InputEvent) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+    this.inputValue = value;
+  }
+
+  private deleteTag(index) {
+    this.inputValue = '1'; // TODO fix
+    this.inputValue = '';
+    this.tags.splice(index, 1);
+  }
+
+  private addTag(event) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value;
+
+    if (event.key === ' ' || event.key === 'Enter') {
+      this.inputValue = value;
+      if (this.tags.indexOf(value) !== -1) {
+        return;
+      }
+      if (!value.trim().length) return;
+      this.tags.push(value);
+      this.inputValue = event.target.value = '';
+    }
   }
 
   private getSelectionOptions(): HTMLGuxTagPopoverOptionElement[] {
@@ -181,12 +240,13 @@ export class GuxTagPopover {
     // Hack around TSX not supporting for..of on HTMLCollection, this
     // needs to be tested in IE11
     const childrenElements: any = options.children;
+
     for (const child of childrenElements) {
       if (child.matches('gux-tag-popover-option')) {
+        // TODO rename optionS
         result.push(child as HTMLGuxTagPopoverOptionElement);
       }
     }
-
     return result;
   }
 
@@ -202,43 +262,43 @@ export class GuxTagPopover {
     }
   }
 
-  private getFocusIndex(): number {
-    return this.selectionOptions.findIndex(option => {
-      return option.matches(':focus');
-    });
-  }
+  // private getFocusIndex(): number {
+  //   return this.selectionOptions.findIndex(option => {
+  //     return option.matches(':focus');
+  //   });
+  // }
 
-  private optionsKeyDown(event: KeyboardEvent) {
-    switch (event.key) {
-      case 'ArrowUp': {
-        const focusIndex = this.getFocusIndex();
-        if (focusIndex > 0) {
-          this.selectionOptions[focusIndex - 1].focus();
-        }
-        break;
-      }
-      case 'ArrowDown': {
-        const focusIndex = this.getFocusIndex();
-        if (focusIndex < this.selectionOptions.length - 1) {
-          this.selectionOptions[focusIndex + 1].focus();
-        }
-        break;
-      }
-      case 'Home':
-        if (!this.selectionOptions.length) {
-          return;
-        }
-        this.selectionOptions[0].focus();
-        break;
-      case 'End':
-        if (!this.selectionOptions.length) {
-          return;
-        }
-        this.selectionOptions[this.selectionOptions.length - 1].focus();
-        break;
-      default:
-    }
-  }
+  // private optionsKeyDown(event: KeyboardEvent) {
+  //   switch (event.key) {
+  //     case 'ArrowUp': {
+  //       const focusIndex = this.getFocusIndex();
+  //       if (focusIndex > 0) {
+  //         this.selectionOptions[focusIndex - 1].focus();
+  //       }
+  //       break;
+  //     }
+  //     case 'ArrowDown': {
+  //       const focusIndex = this.getFocusIndex();
+  //       if (focusIndex < this.selectionOptions.length - 1) {
+  //         this.selectionOptions[focusIndex + 1].focus();
+  //       }
+  //       break;
+  //     }
+  //     case 'Home':
+  //       if (!this.selectionOptions.length) {
+  //         return;
+  //       }
+  //       this.selectionOptions[0].focus();
+  //       break;
+  //     case 'End':
+  //       if (!this.selectionOptions.length) {
+  //         return;
+  //       }
+  //       this.selectionOptions[this.selectionOptions.length - 1].focus();
+  //       break;
+  //     default:
+  //   }
+  // }
 
   private inputKeyDown(event: KeyboardEvent) {
     switch (event.key) {
@@ -248,18 +308,6 @@ export class GuxTagPopover {
         this.openDropdown(true);
         break;
       default:
-    }
-  }
-
-  private searchRequested(event: CustomEvent) {
-    this.filter.emit(event.detail);
-
-    if (!this.noFilter) {
-      for (const option of this.selectionOptions) {
-        option.shouldFilter(event.detail).then(isFiltered => {
-          option.filtered = isFiltered;
-        });
-      }
     }
   }
 
