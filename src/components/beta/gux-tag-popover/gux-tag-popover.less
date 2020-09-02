@@ -33,54 +33,20 @@ gux-tag-popover-beta {
       cursor: default;
     }
 
-    .gux-select-field {
+    .gux-tag-popover-container {
       position: relative;
       height: 32px;
       width: 100%;
 
-      .gux-select-input {
+      .gux-tag-popover-button{
         button {
           font-size: 16px;
-        }
-
-        .gux-select-placeholder,
-        .gux-select-value {
-          line-height: 20px;
-        }
-
-        .gux-select-placeholder {
-          color: @placeholder;
         }
 
         &:focus {
           outline: none;
           box-shadow: 0px 0px 0px 3px fade(@gux-blue, 50%);
         }
-      }
-
-      .icon-wrapper {
-        gux-icon {
-          width: 16px;
-          height: 16px;
-        }
-        position: absolute;
-        display: flex;
-        align-items: center;
-        top: 1px;
-        right: 8px;
-        bottom: 0;
-        cursor: pointer;
-        overflow: hidden;
-      }
-    }
-
-    &.active .select-field .select-input {
-      border: 1px solid @active-border;
-      outline: none;
-      box-shadow: 0px 0px 4px @focus-outline;
-
-      &:focus {
-        box-shadow: 0px 0px 4px @focus-outline;
       }
     }
 
@@ -96,7 +62,7 @@ gux-tag-popover-beta {
         content: '';
         position: absolute;
         background: @gux-off-white;
-        left: 18px;
+        left: 20px;
         top: -5px;
         width: 10px;
         height: 10px;
@@ -114,21 +80,25 @@ gux-tag-popover-beta {
         padding: 8px;
         background: @gux-off-white;
 
-        .gux-tag-popover-search-container {
+        .gux-tag-popover-options-container {
           display: flex;
 
           .gux-tag-popover-title {
-            padding-left: 8px;
-            line-height: 36px;
+            padding: 0px 5px;
+            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
           }
 
           .gux-tag-popover-chip-container {
             margin-left: 7px;
-            padding: 5px;
+            padding: 2px 5px;
             display: flex;
             border-radius: @border-radius;
-            border: 1px solid @gux-grey-1;
+            border: 1px solid @gux-grey-2;
             flex: 1 1 auto;
+            flex-wrap: wrap;
             &.active {
               border-color: @active-border;
             }
@@ -136,10 +106,11 @@ gux-tag-popover-beta {
 
           .gux-tag-popover-chip {
             display: flex;
+            margin: 4px 0;
           }
 
           .gux-tag-popover-chip-text,
-          .gux-tag-popover-chip-icon-wrap  {
+          .gux-tag-popover-chip-close-icon-wrap  {
             background-color: @gux-grey-2;
             height: 24px;
             border-radius: @border-radius;
@@ -150,6 +121,7 @@ gux-tag-popover-beta {
           }
 
           .gux-tag-popover-chip-text {
+            display: flex;
             white-space: nowrap;
             padding: 0 8px;
             line-height: 24px;
@@ -160,13 +132,13 @@ gux-tag-popover-beta {
               margin-right: 1px;
               border-radius: @border-radius 0 0 @border-radius;
             }
-            .gux-tag-popover-chip-icon-wrap {
+            .gux-tag-popover-chip-close-icon-wrap {
               display: flex;
               border-radius: 0 @border-radius @border-radius 0;
             }
           }
 
-          .gux-tag-popover-chip-icon-wrap {
+          .gux-tag-popover-chip-close-icon-wrap {
             width: 24px;
             box-sizing: border-box;
             display: none;
@@ -175,38 +147,34 @@ gux-tag-popover-beta {
             justify-content: center;
           }
 
-          .gux-tag-popover-chip-icon {
+          .gux-tag-popover-chip-icon-wrap {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-right: 8px;
+          }
+
+          .gux-tag-popover-chip-close-icon {
             margin: 0 auto;
           }
 
           .gux-tag-popover-input {
             height: 24px;
+            margin: 4px 0;
             background-color: transparent;
             outline: 0;
             border: none;
             width: 100%;
           }
 
+          .gux-tag-popover-tags-container {
+            display: flex;
+            flex-wrap: wrap;
+          }
+
           .gux-tag-popover-input-container {
             position: relative;
             flex: 1 1 auto;
-          }
-
-          .gux-tag-popover-dropdown {
-            display: none;
-            position: absolute;
-            &.opened {
-              display: block;
-            }
-          }
-
-          gux-search-beta {
-            flex: 1;
-            padding-left: 16px;
-
-            & > div {
-              margin: 0;
-            }
           }
         }
         
@@ -218,6 +186,8 @@ gux-tag-popover-beta {
     }
 
     .gux-tag-popover-options {
+      display: none;
+      position: absolute;
       margin: 0;
       margin-top: 12px;
       padding: 8px 0;
@@ -225,6 +195,10 @@ gux-tag-popover-beta {
       border: 1px solid @menu-border-color;
       box-shadow: none;
       color: @text-color;
+
+      &.opened {
+        display: block;
+      }
 
       > gux-tag-popover-option {
         position: relative;
@@ -234,25 +208,7 @@ gux-tag-popover-beta {
         display: flex;
         cursor: pointer;
 
-        > div {
-          position: relative;
-
-          .ghost {
-            position: absolute;
-          }
-        }
-
-        &.disabled {
-          opacity: 0.5;
-          pointer-events: none;
-          cursor: default;
-        }
-
-        &[filtered] {
-          display: none;
-        }
-
-        &:not(.disabled) {
+        & {
           &[selected] {
             background: @gux-light-blue;
             color: @text-color;
@@ -276,25 +232,8 @@ gux-tag-popover-beta {
   color: @gux-off-white;
 
   div.gux-tag-popover {
-    .gux-select-field {
-      .gux-select-input {
-        background-color: @background-color-dark-theme;
-        color: @text-color-dark-theme;
-        border-color: @border-color-dark-theme;
-
-        &:focus {
-          box-shadow: 0px 0px 1px 3px @focus-outline-dark-theme;
-        }
-      }
-
-      gux-icon {
-        color: @text-color-dark-theme;
-      }
-    }
-
-    &.active .gux-select-field .gux-select-input {
-      border-color: @border-color-dark-theme;
-      box-shadow: 0px 0px 1px 3px @focus-outline-dark-theme;
+    .gux-tag-popover-title {
+      color: @gux-grey-2;
     }
   }
 }
@@ -312,30 +251,6 @@ gux-tag-popover-beta.gux-dark-theme {
 // Light
 .gux-tag-popover-light-theme {
   color: @gux-grey-2;
-
-  div.gux-tag-popover {
-    .gux-select-field {
-      .gux-select-input {
-        background-color: @background-color;
-        color: @text-color;
-        border-color: @border-color;
-      }
-
-      gux-icon {
-        color: @text-color;
-      }
-    }
-
-    &.active {
-      .gux-select-field .gux-select-input {
-        border: 1px solid @active-border;
-        box-shadow: 0px 0px 4px @focus-outline;
-        gux-icon {
-          color: @gux-dark-blue;
-        }
-      }
-    }
-  }
 }
 
 .gux-light-theme {

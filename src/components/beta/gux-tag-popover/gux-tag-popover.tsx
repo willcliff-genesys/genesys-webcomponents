@@ -1,15 +1,4 @@
-import {
-  Component,
-  Element,
-  Event,
-  EventEmitter,
-  h,
-  Listen,
-  Method,
-  Prop,
-  State,
-  Watch
-} from '@stencil/core';
+import { Component, Element, h, Listen, Prop, State } from '@stencil/core';
 import { buildI18nForComponent } from '../../../i18n';
 import tagPopoverResources from './i18n/en.json';
 
@@ -20,96 +9,37 @@ import tagPopoverResources from './i18n/en.json';
 export class GuxTagPopover {
   @Element()
   root: HTMLElement;
-  searchElement: HTMLGuxSearchBetaElement;
-  inputBox: HTMLElement;
   i18n: (resourceKey: string, context?: any) => string;
 
   /**
-   * Disable the input and prevent interactions.
+   * Disable the button.
    */
   @Prop()
   disabled: boolean = false;
 
   /**
-   * The dropdown's placeholder.
+   * Tags color
    */
   @Prop()
-  placeholder: string;
-
-  /**
-   * Whether the list should filter its current options.
-   */
-  @Prop()
-  noFilter: boolean = false;
-
-  /**
-   * Timeout between filter input changed and event being emitted.
-   */
-  @Prop()
-  filterDebounceTimeout: number = 500;
-
-  /**
-   * Fires when the value of the advanced dropdown changes.
-   */
-  @Event()
-  input: EventEmitter<string>;
-
-  /**
-   * Fires when the filter of the advanced dropdown changes.
-   */
-  @Event()
-  filter: EventEmitter<string>;
-
-  @State()
-  srLabelledby: string;
+  color: string;
 
   @State()
   opened: boolean;
-  dropdownOpened: boolean = false;
-  value: string;
-  currentlySelectedOption: HTMLGuxTagPopoverOptionElement;
   selectionOptions: HTMLGuxTagPopoverOptionElement[];
 
   @State()
-  tags = ['1', '2', '44'];
+  tags: any[] = [];
+
+  @State()
+  dropdownOpened: boolean;
 
   @State()
   inputValue: string = '';
 
-  @Watch('disabled')
-  watchValue(newValue: boolean) {
-    if (this.opened && newValue) {
-      this.closeDropdown(false);
-    }
-  }
-
-  @Event()
-  change: EventEmitter<string>;
-  emitChange(value: string) {
-    this.change.emit(value);
-  }
-
-  /**
-   * Gets the currently selected values.
-   *
-   * @returns The array of selected values.
-   */
-  @Method()
-  getSelectedValues(): Promise<string[]> {
-    // Once multi-select gets added there will
-    // be multiple values selectable.
-    return Promise.resolve([this.value]);
-  }
-
-  @Method()
-  async setLabeledBy(id: string) {
-    this.srLabelledby = id;
-  }
-
   @Listen('focusout')
   onFocusOut(e: FocusEvent) {
-    if (!e.relatedTarget || !this.root.contains(e.relatedTarget as Node)) {
-      // this.closeDropdown(false); TODO
+    if (!e.relatedTarget) {
+      this.dropdownOpened = false;
     }
   }
 
@@ -121,75 +51,96 @@ export class GuxTagPopover {
     this.selectionOptions = this.getSelectionOptions();
     for (const option of this.selectionOptions) {
       option.addEventListener('selectedChanged', () => {
-        this.inputValue = '1'; // TODO fix
-        this.inputValue = '';
         this.dropdownOpened = false;
-        this.tags.push(option.text);
+        this.tags = [
+          ...this.tags,
+          { text: option.text, icon: option.icon || '' }
+        ];
       });
     }
   }
 
+  private getTagChip(
+    tag: HTMLGuxTagPopoverOptionElement,
+    icon: string,
+    index: number
+  ): HTMLGuxTagPopoverOptionElement {
+    const tagColorStyle = this.color && { 'background-color': this.color };
+    return (
+      <div class="gux-tag-popover-chip">
+        <div class="gux-tag-popover-chip-text" style={tagColorStyle}>
+          {icon}
+          {tag.text}
+        </div>
+        <div
+          class="gux-tag-popover-chip-close-icon-wrap"
+          style={tagColorStyle}
+          onClick={() => this.deleteTag(index)}
+        >
+          <gux-icon
+            decorative
+            icon-name="ic-close"
+            class="gux-tag-popover-chip-close-icon"
+          />
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const tags = [];
+
     this.tags.map((tag, index) => {
-      const ar = (
-        <div class="gux-tag-popover-chip">
-          <div class="gux-tag-popover-chip-text">{tag}</div>
-          <div
-            class="gux-tag-popover-chip-icon-wrap"
-            onClick={() => this.deleteTag(index)}
-          >
-            <gux-icon
-              decorative
-              icon-name="ic-close"
-              class="gux-tag-popover-chip-icon"
-            />
-          </div>
+      const icon = tag.icon && (
+        <div class="gux-tag-popover-chip-icon-wrap">
+          <gux-icon
+            decorative
+            icon-name={tag.icon}
+            class="gux-tag-popover-chip-icon"
+          />
         </div>
       );
-      tags.push(ar);
+
+      const tagChip = this.getTagChip(tag, icon, index);
+      tags.push(tagChip as HTMLGuxTagPopoverOptionElement);
     });
+
     return (
       <div
-        class={`gux-tag-popover 
+        class={`gux-tag-popover
         ${this.disabled ? 'disabled' : ''}
         ${this.opened ? 'active' : ''}`}
       >
-        <div class="gux-select-field">
+        <div class="gux-tag-popover-container">
           <gux-button
-            ref={el => (this.inputBox = el)}
-            class="gux-select-input"
-            aria-labelledby={this.srLabelledby}
-            tabindex="0"
+            class="gux-tag-popover-button"
             onMouseDown={() => this.inputMouseDown()}
-            onKeyDown={e => this.inputKeyDown(e)}
           >
             <gux-icon decorative iconName="ic-tag"></gux-icon>
           </gux-button>
         </div>
         <div class={`gux-tag-popover-menu ${this.opened ? 'opened' : ''}`}>
           <div class="gux-tag-popover-menu-container">
-            <div class="gux-tag-popover-search-container">
-              <b class="gux-tag-popover-title">{this.i18n('searchTitle')}</b>
+            <div class="gux-tag-popover-options-container">
+              <b class="gux-tag-popover-title">{this.i18n('menuTitle')}</b>
               <div
                 class={`gux-tag-popover-chip-container ${
                   this.dropdownOpened ? 'active' : ''
                 }`}
               >
                 {tags}
+                <br />
                 <div class="gux-tag-popover-input-container">
                   <input
                     onFocus={() => {
                       this.dropdownOpened = true;
-                      this.inputValue = '1'; // TODO fix
-                      this.inputValue = '';
                     }}
                     class="gux-tag-popover-input"
                     value={this.inputValue}
                     onKeyDown={e => this.addTag(e)}
                   />
                   <div
-                    class={`gux-tag-popover-dropdown gux-tag-popover-options opened ${
+                    class={`gux-tag-popover-options ${
                       this.dropdownOpened ? 'opened' : ''
                     }`}
                   >
@@ -211,9 +162,10 @@ export class GuxTagPopover {
   }
 
   private deleteTag(index) {
-    this.inputValue = '1'; // TODO fix
-    this.inputValue = '';
+    // Hack for re-render after remove array element
+    const tags = this.tags;
     this.tags.splice(index, 1);
+    this.tags = [...tags];
   }
 
   private addTag(event) {
@@ -222,11 +174,13 @@ export class GuxTagPopover {
 
     if (event.key === ' ' || event.key === 'Enter') {
       this.inputValue = value;
-      if (this.tags.indexOf(value) !== -1) {
+      if (this.tags.indexOf({ text: value }) !== -1) {
         return;
       }
-      if (!value.trim().length) return;
-      this.tags.push(value);
+      if (value.trim().length) {
+        this.tags.push({ text: value });
+      }
+
       this.inputValue = event.target.value = '';
     }
   }
@@ -236,14 +190,10 @@ export class GuxTagPopover {
     const options: HTMLElement = this.root.getElementsByClassName(
       'gux-tag-popover-options'
     )[0] as HTMLElement;
-
-    // Hack around TSX not supporting for..of on HTMLCollection, this
-    // needs to be tested in IE11
     const childrenElements: any = options.children;
 
     for (const child of childrenElements) {
       if (child.matches('gux-tag-popover-option')) {
-        // TODO rename optionS
         result.push(child as HTMLGuxTagPopoverOptionElement);
       }
     }
@@ -251,86 +201,12 @@ export class GuxTagPopover {
   }
 
   private inputMouseDown() {
-    if (this.disabled) {
-      return;
-    }
+    if (this.disabled) return;
 
     if (this.opened) {
-      this.closeDropdown(true);
+      this.opened = false;
     } else {
-      this.openDropdown(false);
-    }
-  }
-
-  // private getFocusIndex(): number {
-  //   return this.selectionOptions.findIndex(option => {
-  //     return option.matches(':focus');
-  //   });
-  // }
-
-  // private optionsKeyDown(event: KeyboardEvent) {
-  //   switch (event.key) {
-  //     case 'ArrowUp': {
-  //       const focusIndex = this.getFocusIndex();
-  //       if (focusIndex > 0) {
-  //         this.selectionOptions[focusIndex - 1].focus();
-  //       }
-  //       break;
-  //     }
-  //     case 'ArrowDown': {
-  //       const focusIndex = this.getFocusIndex();
-  //       if (focusIndex < this.selectionOptions.length - 1) {
-  //         this.selectionOptions[focusIndex + 1].focus();
-  //       }
-  //       break;
-  //     }
-  //     case 'Home':
-  //       if (!this.selectionOptions.length) {
-  //         return;
-  //       }
-  //       this.selectionOptions[0].focus();
-  //       break;
-  //     case 'End':
-  //       if (!this.selectionOptions.length) {
-  //         return;
-  //       }
-  //       this.selectionOptions[this.selectionOptions.length - 1].focus();
-  //       break;
-  //     default:
-  //   }
-  // }
-
-  private inputKeyDown(event: KeyboardEvent) {
-    switch (event.key) {
-      case 'ArrowUp':
-      case 'ArrowDown':
-      case ' ':
-        this.openDropdown(true);
-        break;
-      default:
-    }
-  }
-
-  private changeFocusToSearch() {
-    setTimeout(() => {
-      this.searchElement.setInputFocus();
-    });
-  }
-
-  private openDropdown(focusSearch: boolean) {
-    this.opened = true;
-
-    if (focusSearch) {
-      this.changeFocusToSearch();
-    }
-  }
-
-  private closeDropdown(focus: boolean) {
-    this.opened = false;
-    this.searchElement.value = '';
-
-    if (focus) {
-      this.inputBox.focus();
+      this.opened = true;
     }
   }
 }

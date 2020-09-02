@@ -7,44 +7,10 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 ## Properties
 
-| Property                | Attribute                 | Description                                                   | Type      | Default     |
-| ----------------------- | ------------------------- | ------------------------------------------------------------- | --------- | ----------- |
-| `disabled`              | `disabled`                | Disable the input and prevent interactions.                   | `boolean` | `false`     |
-| `filterDebounceTimeout` | `filter-debounce-timeout` | Timeout between filter input changed and event being emitted. | `number`  | `500`       |
-| `noFilter`              | `no-filter`               | Whether the list should filter its current options.           | `boolean` | `false`     |
-| `placeholder`           | `placeholder`             | The dropdown's placeholder.                                   | `string`  | `undefined` |
-
-
-## Events
-
-| Event    | Description                                             | Type                  |
-| -------- | ------------------------------------------------------- | --------------------- |
-| `change` |                                                         | `CustomEvent<string>` |
-| `filter` | Fires when the filter of the advanced dropdown changes. | `CustomEvent<string>` |
-| `input`  | Fires when the value of the advanced dropdown changes.  | `CustomEvent<string>` |
-
-
-## Methods
-
-### `getSelectedValues() => Promise<string[]>`
-
-Gets the currently selected values.
-
-#### Returns
-
-Type: `Promise<string[]>`
-
-
-
-### `setLabeledBy(id: string) => Promise<void>`
-
-
-
-#### Returns
-
-Type: `Promise<void>`
-
-
+| Property   | Attribute  | Description         | Type      | Default     |
+| ---------- | ---------- | ------------------- | --------- | ----------- |
+| `color`    | `color`    | Tags color          | `string`  | `undefined` |
+| `disabled` | `disabled` | Disable the button. | `boolean` | `false`     |
 
 
 ## Dependencies

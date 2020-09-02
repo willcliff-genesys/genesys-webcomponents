@@ -7,8 +7,8 @@ describe('gux-tag-popover', () => {
       components: [GuxTagPopover],
       html: `
         <gux-tag-popover-beta lang="en">
-          <gux-tag-popover-option value="en" text="English"></gux-tag-popover-option>
-          <gux-tag-popover-option value="nl" text="Dutch"></gux-tag-popover-option>
+          <gux-tag-popover-option>English</gux-tag-popover-option>
+          <gux-tag-popover-option>Dutch</gux-tag-popover-option>
         </gux-tag-popover-beta>
       `,
       language: 'en'

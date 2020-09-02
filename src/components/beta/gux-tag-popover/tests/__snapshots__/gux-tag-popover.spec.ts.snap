@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gux-tag-popover should render 1`] = `
+<gux-tag-popover-beta lang="en">
+  <!---->
+  <div class="gux-tag-popover">
+    <div class="gux-tag-popover-container">
+      <gux-button class="gux-tag-popover-button">
+        <gux-icon decorative="" iconname="ic-tag"></gux-icon>
+      </gux-button>
+    </div>
+    <div class="gux-tag-popover-menu">
+      <div class="gux-tag-popover-menu-container">
+        <div class="gux-tag-popover-options-container">
+          <b class="gux-tag-popover-title">
+            Add Tags
+          </b>
+          <div class="gux-tag-popover-chip-container">
+            <br>
+            <div class="gux-tag-popover-input-container">
+              <input class="gux-tag-popover-input" value="">
+              <div class="gux-tag-popover-options">
+                <gux-tag-popover-option>
+                  English
+                </gux-tag-popover-option>
+                <gux-tag-popover-option>
+                  Dutch
+                </gux-tag-popover-option>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</gux-tag-popover-beta>
+`;

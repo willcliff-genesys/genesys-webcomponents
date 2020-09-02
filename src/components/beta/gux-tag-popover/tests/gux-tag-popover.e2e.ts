@@ -7,7 +7,7 @@ describe('gux-tag-popover', () => {
     await page.setContent(
       '<gux-tag-popover-beta lang="en"></gux-tag-popover-beta>'
     );
-    const element = await page.find('gux-tag-popover');
+    const element = await page.find('gux-tag-popover-beta');
     expect(element).toHaveClass('hydrated');
   });
 
@@ -15,8 +15,8 @@ describe('gux-tag-popover', () => {
     const page = await newE2EPage();
     await page.setContent(`
       <gux-tag-popover-beta lang="en">
-        <gux-tag-popover-option value="en" text="English"></gux-tag-popover-option>
-        <gux-tag-popover-option value="nl" text="Dutch"></gux-tag-popover-option>
+        <gux-tag-popover-option>English</gux-tag-popover-option>
+        <gux-tag-popover-option>Dutch</gux-tag-popover-option>
       </gux-tag-popover-beta>
     `);
     await page.waitForChanges();
@@ -34,8 +34,8 @@ describe('gux-tag-popover', () => {
     const page = await newE2EPage();
     await page.setContent(`
       <gux-tag-popover-beta lang="en">
-        <gux-tag-popover-option value="en" text="English"></gux-tag-popover-option>
-        <gux-tag-popover-option value="nl" text="Dutch"></gux-tag-popover-option>
+        <gux-tag-popover-option>English</gux-tag-popover-option>
+        <gux-tag-popover-option>Dutch</gux-tag-popover-option>
       </gux-tag-popover-beta>
     `);
     await page.waitForChanges();
@@ -61,8 +61,8 @@ describe('gux-tag-popover', () => {
     const page = await newE2EPage();
     await page.setContent(`
     <gux-tag-popover-beta lang="en" filter-debounce-timeout="100">
-      <gux-tag-popover-option value="en" text="English"></gux-tag-popover-option>
-      <gux-tag-popover-option value="nl" text="Dutch"></gux-tag-popover-option>
+      <gux-tag-popover-option>English</gux-tag-popover-option>
+      <gux-tag-popover-option>Dutch</gux-tag-popover-option>
     </gux-tag-popover-beta>
   `);
     await page.waitForChanges();
@@ -87,8 +87,8 @@ describe('gux-tag-popover', () => {
     const page = await newE2EPage();
     await page.setContent(`
       <gux-tag-popover-beta lang="en" filter-debounce-timeout="0" no-filter>
-        <gux-tag-popover-option value="en" text="English"></gux-tag-popover-option>
-        <gux-tag-popover-option value="nl" text="Dutch"></gux-tag-popover-option>
+        <gux-tag-popover-option>English</gux-tag-popover-option>
+        <gux-tag-popover-option>Dutch</gux-tag-popover-option>
       </gux-tag-popover-beta>
     `);
     await page.waitForChanges();
