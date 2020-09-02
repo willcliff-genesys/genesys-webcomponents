@@ -108,8 +108,7 @@ export class GuxTagPopover {
     return (
       <div
         class={`gux-tag-popover
-        ${this.disabled ? 'disabled' : ''}
-        ${this.opened ? 'active' : ''}`}
+        ${this.disabled ? 'disabled' : ''}`}
       >
         <div class="gux-tag-popover-container">
           <gux-button
