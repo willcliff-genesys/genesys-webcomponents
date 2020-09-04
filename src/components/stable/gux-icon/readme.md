@@ -39,6 +39,7 @@
  - [gux-tab](../../beta/gux-tabs/gux-tab)
  - [gux-tab-dropdown-option](../../beta/gux-tabs/gux-tab-dropdown-option)
  - [gux-tabs-beta](../../beta/gux-tabs)
+ - [gux-tag-beta](../../beta/gux-tag)
  - [gux-text-field](../gux-text-field)
 
 ### Graph
@@ -65,6 +66,7 @@ graph TD;
   gux-tab --> gux-icon
   gux-tab-dropdown-option --> gux-icon
   gux-tabs-beta --> gux-icon
+  gux-tag-beta --> gux-icon
   gux-text-field --> gux-icon
   style gux-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

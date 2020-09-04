@@ -253,6 +253,7 @@
       "icon-name": "text"
     }
   },
+  "gux-tag": {},
   "gux-text-field": {
     "attributes": {
       "value": "text",
