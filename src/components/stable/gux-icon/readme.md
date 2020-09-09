@@ -21,6 +21,7 @@
  - [gux-accordion](../gux-accordion)
  - [gux-action-button](../gux-action-button)
  - [gux-advanced-dropdown](../gux-advanced-dropdown)
+ - [gux-breadcrumb-item](../../beta/gux-breadcrumbs/breadcrumb-item)
  - [gux-calendar](../gux-calendar)
  - [gux-color-picker](../gux-color-picker)
  - [gux-datepicker](../gux-datepicker)
@@ -39,6 +40,7 @@
  - [gux-tab](../../beta/gux-tabs/gux-tab)
  - [gux-tab-dropdown-option](../../beta/gux-tabs/gux-tab-dropdown-option)
  - [gux-tabs-beta](../../beta/gux-tabs)
+ - [gux-tag-beta](../../beta/gux-tag)
  - [gux-tag-popover-beta](../../beta/gux-tag-popover)
  - [gux-text-field](../gux-text-field)
 
@@ -48,6 +50,7 @@ graph TD;
   gux-accordion --> gux-icon
   gux-action-button --> gux-icon
   gux-advanced-dropdown --> gux-icon
+  gux-breadcrumb-item --> gux-icon
   gux-calendar --> gux-icon
   gux-color-picker --> gux-icon
   gux-datepicker --> gux-icon
@@ -66,6 +69,7 @@ graph TD;
   gux-tab --> gux-icon
   gux-tab-dropdown-option --> gux-icon
   gux-tabs-beta --> gux-icon
+  gux-tag-beta --> gux-icon
   gux-tag-popover-beta --> gux-icon
   gux-text-field --> gux-icon
   style gux-icon fill:#f9f,stroke:#333,stroke-width:4px

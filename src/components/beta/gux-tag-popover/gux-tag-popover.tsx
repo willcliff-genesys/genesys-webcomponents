@@ -1,4 +1,12 @@
-import { Component, Element, h, Listen, Prop, State } from '@stencil/core';
+import {
+  Component,
+  Element,
+  h,
+  Listen,
+  Prop,
+  State,
+  Watch
+} from '@stencil/core';
 import { buildI18nForComponent } from '../../../i18n';
 import tagPopoverResources from './i18n/en.json';
 
@@ -36,11 +44,32 @@ export class GuxTagPopover {
   @State()
   inputValue: string = '';
 
+  @State()
+  index: number = 0;
+
+  @State()
+  closeButtons: any;
+
   @Listen('focusout')
   onFocusOut(e: FocusEvent) {
     if (!e.relatedTarget) {
       this.dropdownOpened = false;
     }
+  }
+
+  @Watch('tags')
+  watchHandler() {
+    this.closeButtons = Array.from(
+      this.root.getElementsByClassName('gux-tag-close-icon-wrap')
+    );
+
+    this.closeButtons.map(closeButton => {
+      const id = closeButton.closest('gux-tag-beta').id;
+      const handler = () => {
+        this.deleteTag(id);
+      };
+      closeButton.addEventListener('click', handler);
+    });
   }
 
   async componentWillLoad() {
@@ -54,55 +83,32 @@ export class GuxTagPopover {
         this.dropdownOpened = false;
         this.tags = [
           ...this.tags,
-          { text: option.text, icon: option.icon || '' }
+          {
+            text: option.text,
+            icon: option.icon || '',
+            index: this.tags.length
+          }
         ];
       });
     }
   }
 
-  private getTagChip(
-    tag: HTMLGuxTagPopoverOptionElement,
-    icon: string,
-    index: number
-  ): HTMLGuxTagPopoverOptionElement {
-    const tagColorStyle = this.color && { 'background-color': this.color };
-    return (
-      <div class="gux-tag-popover-chip">
-        <div class="gux-tag-popover-chip-text" style={tagColorStyle}>
-          {icon}
-          {tag.text}
-        </div>
-        <div
-          class="gux-tag-popover-chip-close-icon-wrap"
-          style={tagColorStyle}
-          onClick={() => this.deleteTag(index)}
-        >
-          <gux-icon
-            decorative
-            icon-name="ic-close"
-            class="gux-tag-popover-chip-close-icon"
-          />
-        </div>
-      </div>
-    );
+  private deleteTag(id) {
+    let tags = this.tags;
+    tags = this.tags.filter(tag => tag.index !== +id);
+    this.tags = [...tags];
   }
 
   render() {
     const tags = [];
 
-    this.tags.map((tag, index) => {
-      const icon = tag.icon && (
-        <div class="gux-tag-popover-chip-icon-wrap">
-          <gux-icon
-            decorative
-            icon-name={tag.icon}
-            class="gux-tag-popover-chip-icon"
-          />
-        </div>
+    this.tags.map(tag => {
+      const tagChip = (
+        <gux-tag-beta id={tag.index} close icon={tag.icon} color={this.color}>
+          {tag.text}
+        </gux-tag-beta>
       );
-
-      const tagChip = this.getTagChip(tag, icon, index);
-      tags.push(tagChip as HTMLGuxTagPopoverOptionElement);
+      tags.push(tagChip as HTMLElement);
     });
 
     return (
@@ -154,19 +160,6 @@ export class GuxTagPopover {
     );
   }
 
-  updateValue(event: InputEvent) {
-    const target = event.target as HTMLInputElement;
-    const value = target.value;
-    this.inputValue = value;
-  }
-
-  private deleteTag(index) {
-    // Hack for re-render after remove array element
-    const tags = this.tags;
-    this.tags.splice(index, 1);
-    this.tags = [...tags];
-  }
-
   private addTag(event) {
     const target = event.target as HTMLInputElement;
     const value = target.value;
@@ -177,7 +170,7 @@ export class GuxTagPopover {
         return;
       }
       if (value.trim().length) {
-        this.tags.push({ text: value });
+        this.tags = [...this.tags, { text: value, index: this.tags.length }];
       }
 
       this.inputValue = event.target.value = '';

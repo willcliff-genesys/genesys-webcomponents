@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`gux-tag-beta should render 1`] = `
+<gux-tag-beta>
+  <!---->
+  <div class="gux-tag">
+    <div class="gux-tag-text"></div>
+  </div>
+</gux-tag-beta>
+`;
