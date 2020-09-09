@@ -27,49 +27,45 @@ export class GuxTag {
   light: boolean;
 
   /**
-   * Label text bold.
-   */
-  @Prop()
-  textBold: boolean;
-
-  /**
-   * Tag close button.
-   */
-  @Prop()
-  close: boolean;
-
-  /**
    * Tag border.
    */
   @Prop()
   outlined: boolean;
 
   render() {
-    const colorStyle = this.color && { 'background-color': this.color };
-    const labelIcon = this.icon && (
-      <div class="gux-tag-icon-wrap">
-        <gux-icon decorative icon-name={this.icon} class="gux-tag-icon" />
-      </div>
-    );
-    const closeBtn = this.close && (
-      <div class="gux-tag-close-icon-wrap" style={colorStyle}>
-        <gux-icon decorative icon-name="ic-close" class="gux-tag-close-icon" />
-      </div>
-    );
     return (
       <div
         class={`gux-tag  ${this.light ? 'light' : ''} ${
           this.outlined ? 'outlined' : ''
-        } ${this.close ? 'close' : ''}`}
+        }`}
       >
-        <div
-          class={`gux-tag-text ${this.textBold ? 'text-bold' : ''}`}
-          style={colorStyle}
-        >
-          {labelIcon}
+        <div class="gux-tag-text" style={this.getColorStyle()}>
+          {this.getIcon()}
           <slot />
         </div>
-        {closeBtn}
+        {this.getCloseButton()}
+      </div>
+    );
+  }
+
+  private getColorStyle() {
+    return this.color && { 'background-color': this.color };
+  }
+
+  private getIcon() {
+    return (
+      this.icon && (
+        <div class="gux-tag-icon-wrap">
+          <gux-icon decorative icon-name={this.icon} class="gux-tag-icon" />
+        </div>
+      )
+    );
+  }
+
+  private getCloseButton() {
+    return (
+      <div class="gux-tag-close-icon-wrap" style={this.getColorStyle()}>
+        <gux-icon decorative icon-name="ic-close" class="gux-tag-close-icon" />
       </div>
     );
   }

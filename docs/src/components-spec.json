@@ -266,12 +266,10 @@
   },
   "gux-tag": {
     "attributes": {
-      "close": "checkbox",
       "color": "text",
       "icon": "text",
       "light": "checkbox",
-      "outlined": "checkbox",
-      "text-bold": "checkbox"
+      "outlined": "checkbox"
     }
   },
   "gux-text-field": {
