@@ -10,9 +10,17 @@
 | `close`    | `close`     | Tag close button.     | `boolean` | `undefined` |
 | `color`    | `color`     | Tag background color. | `string`  | `undefined` |
 | `icon`     | `icon`      | Tag icon.             | `string`  | `undefined` |
+| `index`    | `index`     | Index.                | `number`  | `undefined` |
 | `light`    | `light`     | Label text color.     | `boolean` | `undefined` |
 | `outlined` | `outlined`  | Tag border.           | `boolean` | `undefined` |
 | `textBold` | `text-bold` | Label text bold.      | `boolean` | `undefined` |
+
+
+## Events
+
+| Event       | Description | Type               |
+| ----------- | ----------- | ------------------ |
+| `deleteTag` |             | `CustomEvent<any>` |
 
 
 ## Dependencies

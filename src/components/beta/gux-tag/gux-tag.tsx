@@ -1,4 +1,11 @@
-import { Component, Element, h, Prop } from '@stencil/core';
+import {
+  Component,
+  Element,
+  h,
+  Prop,
+  Event,
+  EventEmitter
+} from '@stencil/core';
 
 @Component({
   styleUrl: 'gux-tag.less',
@@ -44,6 +51,15 @@ export class GuxTag {
   @Prop()
   outlined: boolean;
 
+  /**
+   * Index.
+   */
+  @Prop()
+  index: number;
+
+  @Event()
+  private deleteTag: EventEmitter;
+
   render() {
     const colorStyle = this.color && { 'background-color': this.color };
     const labelIcon = this.icon && (
@@ -52,7 +68,11 @@ export class GuxTag {
       </div>
     );
     const closeBtn = this.close && (
-      <div class="gux-tag-close-icon-wrap" style={colorStyle}>
+      <div
+        class="gux-tag-close-icon-wrap"
+        onClick={this.onDeleteTag.bind(this)}
+        style={colorStyle}
+      >
         <gux-icon decorative icon-name="ic-close" class="gux-tag-close-icon" />
       </div>
     );
@@ -72,5 +92,9 @@ export class GuxTag {
         {closeBtn}
       </div>
     );
+  }
+
+  private onDeleteTag(): void {
+    this.deleteTag.emit(this.index);
   }
 }

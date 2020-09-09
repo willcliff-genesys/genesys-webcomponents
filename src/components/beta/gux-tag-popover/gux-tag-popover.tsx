@@ -43,6 +43,13 @@ export class GuxTagPopover {
     }
   }
 
+  @Listen('deleteTag')
+  onDeleteTag(event): void {
+    const tags = this.tags;
+    tags.splice(event.detail, 1);
+    this.tags = [...tags];
+  }
+
   async componentWillLoad() {
     this.i18n = await buildI18nForComponent(this.root, tagPopoverResources);
   }
@@ -68,12 +75,7 @@ export class GuxTagPopover {
 
     this.tags.map((tag, index) => {
       const tagChip = (
-        <gux-tag-beta
-          onClick={() => this.deleteTag(index)}
-          close
-          icon={tag.icon}
-          color={this.color}
-        >
+        <gux-tag-beta close icon={tag.icon} color={this.color} index={index}>
           {tag.text}
         </gux-tag-beta>
       );
@@ -144,12 +146,6 @@ export class GuxTagPopover {
 
       this.inputValue = event.target.value = '';
     }
-  }
-
-  private deleteTag(index: number): void {
-    const tags = this.tags;
-    tags.splice(index, 1);
-    this.tags = [...tags];
   }
 
   private getSelectionOptions(): HTMLGuxTagPopoverOptionElement[] {

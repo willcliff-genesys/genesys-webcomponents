@@ -268,7 +268,8 @@
     "attributes": {
       "disabled": "checkbox",
       "color": "text"
-    }
+    },
+    "events": { "deleteTag": "delete tag" }
   },
   "gux-tag": {
     "attributes": {
