@@ -267,13 +267,7 @@
   "gux-tag-popover": {
     "attributes": {
       "disabled": "checkbox",
-      "no-filter": "checkbox",
-      "filter-debounce-timeout": "text",
-      "placeholder": "text"
-    },
-    "events": {
-      "input": "Item from dropdown selected",
-      "filter": "Filter value changed"
+      "color": "text"
     }
   },
   "gux-tag": {

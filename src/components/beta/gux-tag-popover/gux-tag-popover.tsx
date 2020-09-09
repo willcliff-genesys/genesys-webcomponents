@@ -1,12 +1,4 @@
-import {
-  Component,
-  Element,
-  h,
-  Listen,
-  Prop,
-  State,
-  Watch
-} from '@stencil/core';
+import { Component, Element, h, Listen, Prop, State } from '@stencil/core';
 import { buildI18nForComponent } from '../../../i18n';
 import tagPopoverResources from './i18n/en.json';
 
@@ -85,7 +77,7 @@ export class GuxTagPopover {
           {tag.text}
         </gux-tag-beta>
       );
-      tags.push(tagChip as HTMLElement);
+      tags.push(tagChip as HTMLGuxTagPopoverOptionElement);
     });
 
     return (
@@ -137,7 +129,7 @@ export class GuxTagPopover {
     );
   }
 
-  private addTag(event) {
+  private addTag(event): void {
     const target = event.target as HTMLInputElement;
     const value = target.value;
 
@@ -175,13 +167,8 @@ export class GuxTagPopover {
     return result;
   }
 
-  private inputMouseDown() {
+  private inputMouseDown(): void {
     if (this.disabled) return;
-
-    if (this.opened) {
-      this.opened = false;
-    } else {
-      this.opened = true;
-    }
+    this.opened = !this.opened;
   }
 }
