@@ -1,4 +1,4 @@
-# gux-dropdown-option
+# gux-tag-popover-option
 
 
 
