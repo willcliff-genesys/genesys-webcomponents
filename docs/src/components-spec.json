@@ -283,7 +283,7 @@
       "icon": "text",
       "light": "checkbox",
       "outlined": "checkbox",
-      "textBold": "checkbox"
+      "text-bold": "checkbox"
     }
   },
   "gux-text-field": {

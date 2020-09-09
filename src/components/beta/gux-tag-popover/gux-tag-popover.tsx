@@ -44,32 +44,11 @@ export class GuxTagPopover {
   @State()
   inputValue: string = '';
 
-  @State()
-  index: number = 0;
-
-  @State()
-  closeButtons: any;
-
   @Listen('focusout')
   onFocusOut(e: FocusEvent) {
     if (!e.relatedTarget) {
       this.dropdownOpened = false;
     }
-  }
-
-  @Watch('tags')
-  watchHandler() {
-    this.closeButtons = Array.from(
-      this.root.getElementsByClassName('gux-tag-close-icon-wrap')
-    );
-
-    this.closeButtons.map(closeButton => {
-      const id = closeButton.closest('gux-tag-beta').id;
-      const handler = () => {
-        this.deleteTag(id);
-      };
-      closeButton.addEventListener('click', handler);
-    });
   }
 
   async componentWillLoad() {
@@ -85,26 +64,24 @@ export class GuxTagPopover {
           ...this.tags,
           {
             text: option.text,
-            icon: option.icon || '',
-            index: this.tags.length
+            icon: option.icon || ''
           }
         ];
       });
     }
   }
 
-  private deleteTag(id) {
-    let tags = this.tags;
-    tags = this.tags.filter(tag => tag.index !== +id);
-    this.tags = [...tags];
-  }
-
   render() {
     const tags = [];
 
-    this.tags.map(tag => {
+    this.tags.map((tag, index) => {
       const tagChip = (
-        <gux-tag-beta id={tag.index} close icon={tag.icon} color={this.color}>
+        <gux-tag-beta
+          onClick={() => this.deleteTag(index)}
+          close
+          icon={tag.icon}
+          color={this.color}
+        >
           {tag.text}
         </gux-tag-beta>
       );
@@ -175,6 +152,12 @@ export class GuxTagPopover {
 
       this.inputValue = event.target.value = '';
     }
+  }
+
+  private deleteTag(index: number): void {
+    const tags = this.tags;
+    tags.splice(index, 1);
+    this.tags = [...tags];
   }
 
   private getSelectionOptions(): HTMLGuxTagPopoverOptionElement[] {
