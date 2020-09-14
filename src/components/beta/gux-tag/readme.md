@@ -5,12 +5,16 @@
 
 ## Properties
 
-| Property   | Attribute  | Description           | Type      | Default     |
-| ---------- | ---------- | --------------------- | --------- | ----------- |
-| `color`    | `color`    | Tag background color. | `string`  | `undefined` |
-| `icon`     | `icon`     | Tag icon.             | `string`  | `undefined` |
-| `light`    | `light`    | Label text color.     | `boolean` | `undefined` |
-| `outlined` | `outlined` | Tag border.           | `boolean` | `undefined` |
+| Property | Attribute | Description           | Type     | Default     |
+| -------- | --------- | --------------------- | -------- | ----------- |
+| `color`  | `color`   | Tag background color. | `string` | `undefined` |
+
+
+## Events
+
+| Event   | Description                          | Type               |
+| ------- | ------------------------------------ | ------------------ |
+| `close` | Triggered when click on close button | `CustomEvent<any>` |
 
 
 ## Dependencies

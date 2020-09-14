@@ -10,35 +10,50 @@ gux-tag-beta {
     margin: 4px 0;
     display: flex;
     margin: 4px 0;
-    color: white;
 
     .gux-tag-text,
-      .gux-tag-close-icon-wrap  {
+      .gux-tag-close-button {
         background-color: @gux-grey-2;
         height: 22px;
         border-radius: @border-radius;
         margin-right: 8px;
         text-align: center;
+        color: white;
+        padding: 0;
       }
+
+      .dark-blue { background-color: @gux-dark-blue-sec; }
+      .blue { background-color: @gux-blue-sec; }
+      .purple { background-color: @gux-purple-sec; }
+      .teal { background-color: @gux-teal-sec; }
+      .dark-pink { background-color: @gux-dark-pink-sec; }
+      .dark-purple { background-color: @gux-dark-purple-sec; }
+      .pink { background-color: @gux-pink-sec; }
+      .dark-yellow { background-color: @gux-dark-yellow-sec;}
+      .light-purple { 
+        background-color: @gux-light-purple-sec;
+        color: @gux-grey-2;
+      }
+      .yellow {
+        background-color: @gux-yellow-sec;
+        color: @gux-grey-2;
+      }
+
       .gux-tag-text {
         white-space: nowrap;
         padding: 1px 8px;
         line-height: 22px;
       }
 
-      .gux-tag-close-icon-wrap {
+      .gux-tag-close-button {
         width: 24px;
         height: 24px;
         box-sizing: border-box;
         display: none;
+        border: none;
         cursor: pointer;
         flex-direction: column;
         justify-content: center;
-      }
-
-      .gux-tag-icon-wrap {
-        display: inline;
-        padding-right: 8px;
       }
 
       .gux-tag-close-icon {
@@ -50,23 +65,9 @@ gux-tag-beta {
         margin-right: 1px;
         border-radius: @border-radius 0 0 @border-radius;
       }
-      .gux-tag-close-icon-wrap {
+      .gux-tag-close-button {
         display: flex;
         border-radius: 0 @border-radius @border-radius 0;
-      }
-    }
-
-    &.light {
-      color: @gux-grey-2;
-    }
-
-    &.outlined {
-      .gux-tag-text,
-      .gux-tag-close-icon-wrap {
-        border: 1px solid #00000045;
-      }
-      .gux-tag-text {
-        padding: 0px 7px;
       }
     }
   }
