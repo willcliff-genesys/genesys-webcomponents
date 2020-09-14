@@ -4,7 +4,10 @@ exports[`gux-tag-beta should render 1`] = `
 <gux-tag-beta>
   <!---->
   <div class="gux-tag">
-    <div class="gux-tag-text"></div>
+    <div class="gux-tag-text undefined"></div>
+    <button class="gux-tag-close-button undefined" type="button">
+      <gux-icon class="gux-tag-close-icon" decorative="" icon-name="ic-close"></gux-icon>
+    </button>
   </div>
 </gux-tag-beta>
 `;
