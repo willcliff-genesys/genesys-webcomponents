@@ -8,13 +8,14 @@
 | Property | Attribute | Description           | Type     | Default     |
 | -------- | --------- | --------------------- | -------- | ----------- |
 | `color`  | `color`   | Tag background color. | `string` | `undefined` |
+| `index`  | `index`   | Index                 | `number` | `undefined` |
 
 
 ## Events
 
-| Event   | Description                          | Type               |
-| ------- | ------------------------------------ | ------------------ |
-| `close` | Triggered when click on close button | `CustomEvent<any>` |
+| Event       | Description                          | Type               |
+| ----------- | ------------------------------------ | ------------------ |
+| `deleteTag` | Triggered when click on close button | `CustomEvent<any>` |
 
 
 ## Dependencies

@@ -269,7 +269,7 @@
       "color": "text"
     },
     "events": {
-      "close": "Click on close button"
+      "deleteTag": "Click on delete tag button"
     }
   },
   "gux-text-field": {

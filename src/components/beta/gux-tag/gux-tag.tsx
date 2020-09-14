@@ -19,7 +19,7 @@ export class GuxTag {
    * Triggered when click on close button
    */
   @Event()
-  close: EventEmitter;
+  deleteTag: EventEmitter;
 
   /**
    * Tag background color.
@@ -27,18 +27,24 @@ export class GuxTag {
   @Prop()
   color: string;
 
-  handlerClickClose() {
-    this.close.emit();
+  /**
+   * Index
+   */
+  @Prop()
+  index: number;
+
+  private handlerClickDeleteTag(): void {
+    this.deleteTag.emit(this.index);
   }
 
-  private getCloseButton() {
+  private getDeleteButton() {
     return (
       <button
         type="button"
-        onClick={() => this.handlerClickClose()}
-        class={`gux-tag-close-button ${this.color}`}
+        onClick={this.handlerClickDeleteTag.bind(this)}
+        class={`gux-tag-delete-button ${this.color || ''}`}
       >
-        <gux-icon decorative icon-name="ic-close" class="gux-tag-close-icon" />
+        <gux-icon decorative icon-name="ic-close" class="gux-tag-delete-icon" />
       </button>
     );
   }
@@ -46,10 +52,10 @@ export class GuxTag {
   render() {
     return (
       <div class="gux-tag">
-        <div class={`gux-tag-text ${this.color}`}>
+        <div class={`gux-tag-text ${this.color || ''}`}>
           <slot />
         </div>
-        {this.getCloseButton()}
+        {this.getDeleteButton()}
       </div>
     );
   }
