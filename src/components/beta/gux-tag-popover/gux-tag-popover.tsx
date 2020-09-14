@@ -75,7 +75,7 @@ export class GuxTagPopover {
 
     this.tags.map((tag, index) => {
       const tagChip = (
-        <gux-tag-beta close icon={tag.icon} color={this.color} index={index}>
+        <gux-tag-beta color={this.color} index={index}>
           {tag.text}
         </gux-tag-beta>
       );

@@ -77,7 +77,7 @@ describe('gux-tag-popover-beta', () => {
     const optionsElm = await element.find('.gux-tag-popover-options');
     expect(optionsElm.className.split(' ')).not.toContain('opened');
 
-    const tagElm = await element.find('.gux-tag-popover-chip');
+    const tagElm = await element.find('gux-tag-beta');
     expect(tagElm).not.toBeNull();
   });
 });
