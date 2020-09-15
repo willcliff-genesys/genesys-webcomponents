@@ -28,7 +28,7 @@ export class GuxTag {
   color: string;
 
   /**
-   * Index
+   * Index for remove tag
    */
   @Prop()
   index: number;
