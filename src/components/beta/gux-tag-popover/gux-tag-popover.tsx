@@ -23,6 +23,12 @@ export class GuxTagPopover {
   @Prop()
   color: string;
 
+  /**
+   * Indicates the position of the tag button (right or left)
+   */
+  @Prop()
+  position: string = 'left';
+
   @State()
   opened: boolean;
   selectionOptions: HTMLGuxTagPopoverOptionElement[];
@@ -83,19 +89,18 @@ export class GuxTagPopover {
     });
 
     return (
-      <div
-        class={`gux-tag-popover
-        ${this.disabled ? 'disabled' : ''}`}
-      >
+      <div class={`gux-tag-popover ${this.position}`}>
         <div class="gux-tag-popover-container">
           <gux-button
             class="gux-tag-popover-button"
-            onMouseDown={() => this.inputMouseDown()}
+            disabled={this.disabled}
+            onClick={() => this.handlerClickOnMenuButton()}
           >
             <gux-icon decorative iconName="ic-tag"></gux-icon>
           </gux-button>
         </div>
         <div class={`gux-tag-popover-menu ${this.opened ? 'opened' : ''}`}>
+          <div class="arrow" />
           <div class="gux-tag-popover-menu-container">
             <div class="gux-tag-popover-options-container">
               <b class="gux-tag-popover-title">{this.i18n('menuTitle')}</b>
@@ -105,7 +110,6 @@ export class GuxTagPopover {
                 }`}
               >
                 {tags}
-                <br />
                 <div class="gux-tag-popover-input-container">
                   <input
                     onFocus={() => {
@@ -163,7 +167,7 @@ export class GuxTagPopover {
     return result;
   }
 
-  private inputMouseDown(): void {
+  private handlerClickOnMenuButton(): void {
     if (this.disabled) return;
     this.opened = !this.opened;
   }

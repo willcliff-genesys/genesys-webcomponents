@@ -264,8 +264,9 @@
       "icon-name": "text"
     }
   },
-  "gux-tag-popover": {
+  "gux-tag-popover-beta": {
     "attributes": {
+      "position": ["left", "right"],
       "disabled": "checkbox",
       "color": "text"
     },
