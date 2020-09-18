@@ -16,9 +16,6 @@ export class GuxTagPopoverOption {
   slotContent: HTMLElement;
 
   @Prop()
-  icon: string;
-
-  @Prop()
   text: string;
 
   @Event()

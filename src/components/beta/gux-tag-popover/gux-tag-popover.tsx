@@ -12,12 +12,6 @@ export class GuxTagPopover {
   i18n: (resourceKey: string, context?: any) => string;
 
   /**
-   * Disable the button.
-   */
-  @Prop()
-  disabled: boolean = false;
-
-  /**
    * Tags color
    */
   @Prop()
@@ -65,13 +59,7 @@ export class GuxTagPopover {
     for (const option of this.selectionOptions) {
       option.addEventListener('selectedChanged', () => {
         this.dropdownOpened = false;
-        this.tags = [
-          ...this.tags,
-          {
-            text: option.text,
-            icon: option.icon || ''
-          }
-        ];
+        this.tags = [...this.tags, option.text];
       });
     }
   }
@@ -82,7 +70,7 @@ export class GuxTagPopover {
     this.tags.map((tag, index) => {
       const tagChip = (
         <gux-tag-beta color={this.color} index={index}>
-          {tag.text}
+          {tag}
         </gux-tag-beta>
       );
       tags.push(tagChip as HTMLGuxTagPopoverOptionElement);
@@ -92,8 +80,9 @@ export class GuxTagPopover {
       <div class={`gux-tag-popover ${this.position}`}>
         <div class="gux-tag-popover-container">
           <gux-button
-            class="gux-tag-popover-button"
-            disabled={this.disabled}
+            class={`gux-tag-popover-button ${
+              this.tags.length ? 'has-tags' : ''
+            }`}
             onClick={() => this.handlerClickOnMenuButton()}
           >
             <gux-icon decorative iconName="ic-tag"></gux-icon>
@@ -141,11 +130,11 @@ export class GuxTagPopover {
 
     if (event.key === ' ' || event.key === 'Enter') {
       this.inputValue = value;
-      if (this.tags.indexOf({ text: value }) !== -1) {
+      if (this.tags.indexOf(value) !== -1) {
         return;
       }
       if (value.trim().length) {
-        this.tags = [...this.tags, { text: value, index: this.tags.length }];
+        this.tags = [...this.tags, value];
       }
 
       this.inputValue = event.target.value = '';
@@ -168,7 +157,6 @@ export class GuxTagPopover {
   }
 
   private handlerClickOnMenuButton(): void {
-    if (this.disabled) return;
     this.opened = !this.opened;
   }
 }

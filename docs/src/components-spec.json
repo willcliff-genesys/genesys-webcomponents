@@ -264,10 +264,9 @@
       "icon-name": "text"
     }
   },
-  "gux-tag-popover-beta": {
+  "gux-tag-popover": {
     "attributes": {
       "position": ["left", "right"],
-      "disabled": "checkbox",
       "color": "text"
     },
     "events": { "deleteTag": "delete tag" }

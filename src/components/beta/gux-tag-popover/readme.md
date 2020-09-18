@@ -5,11 +5,10 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                                              | Type      | Default     |
-| ---------- | ---------- | -------------------------------------------------------- | --------- | ----------- |
-| `color`    | `color`    | Tags color                                               | `string`  | `undefined` |
-| `disabled` | `disabled` | Disable the button.                                      | `boolean` | `false`     |
-| `position` | `position` | Indicates the position of the tag button (right or left) | `string`  | `'left'`    |
+| Property   | Attribute  | Description                                              | Type     | Default     |
+| ---------- | ---------- | -------------------------------------------------------- | -------- | ----------- |
+| `color`    | `color`    | Tags color                                               | `string` | `undefined` |
+| `position` | `position` | Indicates the position of the tag button (right or left) | `string` | `'left'`    |
 
 
 ## Dependencies

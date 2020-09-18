@@ -1,24 +1,9 @@
 // Variables part
-@background-color: #f9fafb;
-@background-color-dark-theme: #555d66;
-
 @text-color: @gux-grey-2;
-@text-color-dark-theme: @gux-off-white;
-
-@placeholder: @gux-pale-gray-2;
-
-@border-color: @gux-border-alt;
-@border-color-dark-theme: @gux-grey-1;
-
-@focus-outline: fade(@gux-blue, 50%);
-@focus-outline-dark-theme: @gux-blue;
 @active-border: @gux-dark-blue;
-
-@menu-shadow: rgba(34, 37, 41, 0.24);
 
 @menu-background-color: @gux-off-white;
 @menu-border-color: #dae1eb;
-@divider-color: #c3cad4;
 
 @border-radius: 2px;
 
@@ -56,6 +41,10 @@ gux-tag-popover-beta {
       .gux-tag-popover-button {
         button {
           font-size: 16px;
+        }
+
+        &.has-tags > button {
+          color: @gux-dark-blue;
         }
 
         &:focus {
