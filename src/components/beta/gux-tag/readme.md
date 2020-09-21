@@ -5,10 +5,10 @@
 
 ## Properties
 
-| Property | Attribute | Description           | Type     | Default     |
-| -------- | --------- | --------------------- | -------- | ----------- |
-| `color`  | `color`   | Tag background color. | `string` | `undefined` |
-| `index`  | `index`   | Index for remove tag  | `number` | `undefined` |
+| Property | Attribute | Description           | Type                                                                                                                                   | Default     |
+| -------- | --------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `color`  | `color`   | Tag background color. | `"blue" \| "dark-blue" \| "dark-pink" \| "dark-purple" \| "dark-yellow" \| "light-purple" \| "pink" \| "purple" \| "teal" \| "yellow"` | `undefined` |
+| `index`  | `index`   | Index for remove tag  | `number`                                                                                                                               | `undefined` |
 
 
 ## Events

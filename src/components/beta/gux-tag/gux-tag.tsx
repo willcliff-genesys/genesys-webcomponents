@@ -27,7 +27,17 @@ export class GuxTag {
    * Tag background color.
    */
   @Prop()
-  color: string;
+  color:
+    | 'dark-blue'
+    | 'blue'
+    | 'purple'
+    | 'teal'
+    | 'dark-pink'
+    | 'dark-purple'
+    | 'pink'
+    | 'dark-yellow'
+    | 'light-purple'
+    | 'yellow';
 
   /**
    * Index for remove tag
