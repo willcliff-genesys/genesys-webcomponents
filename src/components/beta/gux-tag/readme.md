@@ -8,7 +8,7 @@
 | Property | Attribute | Description           | Type     | Default     |
 | -------- | --------- | --------------------- | -------- | ----------- |
 | `color`  | `color`   | Tag background color. | `string` | `undefined` |
-| `index`  | `index`   | Index                 | `number` | `undefined` |
+| `index`  | `index`   | Index for remove tag  | `number` | `undefined` |
 
 
 ## Events
