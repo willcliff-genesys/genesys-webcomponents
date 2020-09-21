@@ -266,7 +266,18 @@
   },
   "gux-tag": {
     "attributes": {
-      "color": "text"
+      "color": [
+        "dark-blue",
+        "blue",
+        "purple",
+        "teal",
+        "dark-pink",
+        "dark-purple",
+        "pink",
+        "dark-yellow",
+        "light-purple",
+        "yellow"
+      ]
     },
     "events": {
       "deleteTag": "Click on delete tag button"
