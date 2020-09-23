@@ -6,6 +6,8 @@ import {
   Event,
   EventEmitter
 } from '@stencil/core';
+import tagResources from './i18n/en.json';
+import { buildI18nForComponent } from '../../../i18n';
 
 @Component({
   styleUrl: 'gux-tag.less',
@@ -25,34 +27,55 @@ export class GuxTag {
    * Tag background color.
    */
   @Prop()
-  color: string;
+  color:
+    | 'dark-blue'
+    | 'blue'
+    | 'purple'
+    | 'teal'
+    | 'dark-pink'
+    | 'dark-purple'
+    | 'pink'
+    | 'dark-yellow'
+    | 'light-purple'
+    | 'yellow';
 
   /**
    * Index for remove tag
    */
   @Prop()
-  index: number;
+  tagId: string;
+
+  private i18n: (resourceKey: string, context?: any) => string;
 
   private handlerClickDeleteTag(): void {
-    this.deleteTag.emit(this.index);
+    this.deleteTag.emit(this.tagId);
   }
 
   private getDeleteButton() {
     return (
       <button
+        tabindex="0"
         type="button"
         onClick={this.handlerClickDeleteTag.bind(this)}
         class={`gux-tag-delete-button ${this.color || ''}`}
       >
-        <gux-icon decorative icon-name="ic-close" class="gux-tag-delete-icon" />
+        <gux-icon
+          screenreader-text={this.i18n('delete-tag')}
+          icon-name="ic-close"
+          class="gux-tag-delete-icon"
+        />
       </button>
     );
+  }
+
+  async componentWillRender() {
+    this.i18n = await buildI18nForComponent(this.root, tagResources);
   }
 
   render() {
     return (
       <div class="gux-tag">
-        <div class={`gux-tag-text ${this.color || ''}`}>
+        <div class={`gux-tag-text ${this.color || ''}`} tabindex="0">
           <slot />
         </div>
         {this.getDeleteButton()}

@@ -15,7 +15,17 @@ export class GuxTagPopover {
    * Tags color
    */
   @Prop()
-  color: string;
+  color:
+    | 'dark-blue'
+    | 'blue'
+    | 'purple'
+    | 'teal'
+    | 'dark-pink'
+    | 'dark-purple'
+    | 'pink'
+    | 'dark-yellow'
+    | 'light-purple'
+    | 'yellow';
 
   /**
    * Indicates the position of the tag button (right or left)
@@ -69,7 +79,7 @@ export class GuxTagPopover {
 
     this.tags.map((tag, index) => {
       const tagChip = (
-        <gux-tag-beta color={this.color} index={index}>
+        <gux-tag-beta color={this.color} tagId={index.toString()}>
           {tag}
         </gux-tag-beta>
       );
