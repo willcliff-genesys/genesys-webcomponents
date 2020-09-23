@@ -43,12 +43,12 @@ export class GuxTag {
    * Index for remove tag
    */
   @Prop()
-  index: number;
+  tagId: string;
 
   private i18n: (resourceKey: string, context?: any) => string;
 
   private handlerClickDeleteTag(): void {
-    this.deleteTag.emit(this.index);
+    this.deleteTag.emit(this.tagId);
   }
 
   private getDeleteButton() {

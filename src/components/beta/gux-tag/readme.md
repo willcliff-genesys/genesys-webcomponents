@@ -8,7 +8,7 @@
 | Property | Attribute | Description           | Type                                                                                                                                   | Default     |
 | -------- | --------- | --------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
 | `color`  | `color`   | Tag background color. | `"blue" \| "dark-blue" \| "dark-pink" \| "dark-purple" \| "dark-yellow" \| "light-purple" \| "pink" \| "purple" \| "teal" \| "yellow"` | `undefined` |
-| `index`  | `index`   | Index for remove tag  | `number`                                                                                                                               | `undefined` |
+| `tagId`  | `tag-id`  | Index for remove tag  | `string`                                                                                                                               | `undefined` |
 
 
 ## Events
