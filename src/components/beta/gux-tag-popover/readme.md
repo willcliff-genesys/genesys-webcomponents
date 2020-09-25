@@ -5,10 +5,10 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                                              | Type                                                                                                                                   | Default     |
-| ---------- | ---------- | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `color`    | `color`    | Tags color                                               | `"blue" \| "dark-blue" \| "dark-pink" \| "dark-purple" \| "dark-yellow" \| "light-purple" \| "pink" \| "purple" \| "teal" \| "yellow"` | `undefined` |
-| `position` | `position` | Indicates the position of the tag button (right or left) | `string`                                                                                                                               | `'left'`    |
+| Property   | Attribute  | Description                                              | Type                                                                                                                                                   | Default     |
+| ---------- | ---------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| `color`    | `color`    | Tags color                                               | `"aqua-green" \| "blue" \| "bubblegum-pink" \| "dark-purple" \| "electric-purple" \| "fuscha" \| "lilac" \| "navy" \| "olive-green" \| "yellow-green"` | `undefined` |
+| `position` | `position` | Indicates the position of the tag button (right or left) | `string`                                                                                                                                               | `'left'`    |
 
 
 ## Dependencies

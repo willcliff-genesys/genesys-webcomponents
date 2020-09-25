@@ -16,16 +16,16 @@ export class GuxTagPopover {
    */
   @Prop()
   color:
-    | 'dark-blue'
+    | 'navy'
     | 'blue'
-    | 'purple'
-    | 'teal'
-    | 'dark-pink'
+    | 'electric-purple'
+    | 'aqua-green'
+    | 'fuscha'
     | 'dark-purple'
-    | 'pink'
-    | 'dark-yellow'
-    | 'light-purple'
-    | 'yellow';
+    | 'bubblegum-pink'
+    | 'olive-green'
+    | 'lilac'
+    | 'yellow-green';
 
   /**
    * Indicates the position of the tag button (right or left)

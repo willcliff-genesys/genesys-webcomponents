@@ -1,6 +1,7 @@
+@import (reference) '../../../style/color.less';
+
 // Variables part
-@text-color: @gux-grey-2;
-@active-border: @gux-dark-blue;
+@grey: #222529;
 
 @menu-background-color: @gux-off-white;
 @menu-border-color: #dae1eb;
@@ -56,7 +57,7 @@ gux-tag-popover-beta {
 
     .gux-tag-popover-menu {
       display: none;
-      box-shadow: 0px 0px 2px fade(@gux-grey-1, 24%);
+      box-shadow: 0px 0px 2px fade(@grey, 24%);
       margin-top: 8px;
       position: relative;
       width: 100%;
@@ -102,11 +103,11 @@ gux-tag-popover-beta {
             padding: 2px 5px;
             display: flex;
             border-radius: @border-radius;
-            border: 1px solid @gux-grey-2;
+            border: 1px solid @gux-charcoal-grey;
             flex: 1 1 auto;
             flex-wrap: wrap;
             &.active {
-              border-color: @active-border;
+              border-color: @gux-dark-blue;
             }
           }
 
@@ -117,7 +118,7 @@ gux-tag-popover-beta {
 
           .gux-tag-popover-chip-text,
           .gux-tag-popover-chip-close-icon-wrap  {
-            background-color: @gux-grey-2;
+            background-color: @gux-charcoal-grey;
             height: 24px;
             border-radius: @border-radius;
             color: white;
@@ -201,7 +202,7 @@ gux-tag-popover-beta {
       border: 1px solid @menu-border-color;
       box-shadow: none;
       z-index: 1;
-      color: @text-color;
+      color: @gux-charcoal-grey;
 
       &.opened {
         display: block;
@@ -217,8 +218,8 @@ gux-tag-popover-beta {
 
         & {
           &[selected] {
-            background: @gux-light-blue;
-            color: @text-color;
+            background: @gux-text-selection;
+            color: @gux-charcoal-grey;
           }
 
           &:hover,
@@ -240,7 +241,7 @@ gux-tag-popover-beta {
 
   div.gux-tag-popover {
     .gux-tag-popover-title {
-      color: @gux-grey-2;
+      color: @gux-charcoal-grey;
     }
   }
 }
@@ -257,7 +258,7 @@ gux-tag-popover-beta.gux-dark-theme {
 
 // Light
 .gux-tag-popover-light-theme {
-  color: @gux-grey-2;
+  color: @gux-charcoal-grey;
 }
 
 .gux-light-theme {
