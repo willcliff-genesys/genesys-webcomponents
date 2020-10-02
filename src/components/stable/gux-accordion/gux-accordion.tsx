@@ -1,4 +1,14 @@
-import { Component, Element, h, Method, Prop } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  Method,
+  Prop
+} from '@stencil/core';
+
+import { logComponentUsage } from '../../../common/log-component-usage';
+
 import { KeyCode } from '../../../common-enums';
 
 interface ISection {
@@ -14,7 +24,7 @@ function getToggleButton(slot: HTMLElement): HTMLElement {
   styleUrl: 'gux-accordion.less',
   tag: 'gux-accordion'
 })
-export class GuxAccordion {
+export class GuxAccordion implements ComponentInterface {
   @Element()
   root: HTMLGuxAccordionElement;
 
@@ -28,6 +38,10 @@ export class GuxAccordion {
    */
   @Prop()
   headingLevel: number = null;
+
+  constructor() {
+    logComponentUsage('gux-accordion');
+  }
 
   initializeSections() {
     const children = Array.from(this.root.children);

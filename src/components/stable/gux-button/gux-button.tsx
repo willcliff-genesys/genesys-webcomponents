@@ -1,4 +1,13 @@
-import { Component, Element, h, JSX, Prop } from '@stencil/core';
+import {
+  Component,
+  ComponentInterface,
+  Element,
+  h,
+  JSX,
+  Prop
+} from '@stencil/core';
+
+import { logComponentUsage } from '../../../common/log-component-usage';
 
 export type GuxButtonAccent = 'primary' | 'secondary';
 
@@ -6,7 +15,7 @@ export type GuxButtonAccent = 'primary' | 'secondary';
   styleUrl: 'gux-button.less',
   tag: 'gux-button'
 })
-export class GuxButton {
+export class GuxButton implements ComponentInterface {
   @Element()
   private root: HTMLElement;
 
@@ -27,6 +36,10 @@ export class GuxButton {
    */
   @Prop()
   accent: GuxButtonAccent = 'secondary';
+
+  constructor() {
+    logComponentUsage('gux-button');
+  }
 
   componentWillLoad() {
     this.makeSlotContentDisableable();
