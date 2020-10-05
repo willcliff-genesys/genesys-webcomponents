@@ -13,8 +13,8 @@ describe('gux-tag-popover-beta', () => {
     const page = await newE2EPage();
     await page.setContent(`
       <gux-tag-popover-beta>
-        <gux-tag-popover-option>English</gux-tag-popover-option>
-        <gux-tag-popover-option>Dutch</gux-tag-popover-option>
+        <gux-option>English</gux-option>
+        <gux-option>Dutch</gux-option>
       </gux-tag-popover-beta>
     `);
     await page.waitForChanges();
@@ -32,8 +32,8 @@ describe('gux-tag-popover-beta', () => {
     const page = await newE2EPage();
     await page.setContent(`
       <gux-tag-popover-beta>
-        <gux-tag-popover-option>English</gux-tag-popover-option>
-        <gux-tag-popover-option>Dutch</gux-tag-popover-option>
+        <gux-option>English</gux-option>
+        <gux-option>Dutch</gux-option>
       </gux-tag-popover-beta>
     `);
     await page.waitForChanges();
@@ -43,11 +43,11 @@ describe('gux-tag-popover-beta', () => {
     btnElm.click();
     await page.waitForChanges();
 
-    const inputElm = await element.find('.gux-tag-popover-input');
-    inputElm.focus();
+    const inputElm = await element.find('.gux-dropdown');
+    inputElm.click();
     await page.waitForChanges();
 
-    const optionsElm = await element.find('.gux-tag-popover-options');
+    const optionsElm = await element.find('.gux-options');
     expect(optionsElm.className.split(' ')).toContain('opened');
   });
 
@@ -55,8 +55,8 @@ describe('gux-tag-popover-beta', () => {
     const page = await newE2EPage();
     await page.setContent(`
       <gux-tag-popover-beta>
-        <gux-tag-popover-option>English</gux-tag-popover-option>
-        <gux-tag-popover-option>Dutch</gux-tag-popover-option>
+        <gux-option>English</gux-option>
+        <gux-option>Dutch</gux-option>
       </gux-tag-popover-beta>
     `);
     await page.waitForChanges();
@@ -66,15 +66,15 @@ describe('gux-tag-popover-beta', () => {
     btnElm.click();
     await page.waitForChanges();
 
-    const inputElm = await element.find('.gux-tag-popover-input');
-    inputElm.focus();
+    const inputElm = await element.find('.gux-dropdown');
+    inputElm.click();
     await page.waitForChanges();
 
-    const optionElm = await element.find('gux-tag-popover-option');
+    const optionElm = await element.find('gux-option');
     optionElm.click();
     await page.waitForChanges();
 
-    const optionsElm = await element.find('.gux-tag-popover-options');
+    const optionsElm = await element.find('.gux-options');
     expect(optionsElm.className.split(' ')).not.toContain('opened');
 
     const tagElm = await element.find('gux-tag-beta');

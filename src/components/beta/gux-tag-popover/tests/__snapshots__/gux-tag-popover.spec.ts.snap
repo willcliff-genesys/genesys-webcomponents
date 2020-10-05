@@ -18,16 +18,19 @@ exports[`gux-tag-popover should render 1`] = `
           </b>
           <div class="gux-tag-popover-chip-container">
             <div class="gux-tag-popover-input-container">
-              <input class="gux-tag-popover-input" value="">
-              <div class="gux-tag-popover-options">
-                <gux-tag-popover-option>
-                  English
-                </gux-tag-popover-option>
-                <gux-tag-popover-option>
-                  Dutch
-                </gux-tag-popover-option>
-              </div>
+              <gux-dropdown filterable="" value="">
+                <gux-option></gux-option>
+                <gux-option></gux-option>
+              </gux-dropdown>
             </div>
+            <span style="display: none;">
+              <gux-option>
+                English
+              </gux-option>
+              <gux-option>
+                Dutch
+              </gux-option>
+            </span>
           </div>
         </div>
       </div>
