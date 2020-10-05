@@ -44,7 +44,7 @@ export class GuxTagPopover {
   availableOptions: HTMLGuxOptionElement[] = [];
 
   @State()
-  tags: any[] = [];
+  tags: string[] = [];
 
   @State()
   inputValue: string = '';
