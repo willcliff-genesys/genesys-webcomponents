@@ -23,12 +23,13 @@
 
 ### Depends on
 
-- [gux-text-highlight](../../../stable/gux-text-highlight)
+- [gux-option](../../../stable/gux-dropdown/gux-option)
 
 ### Graph
 ```mermaid
 graph TD;
-  gux-tag-popover-option --> gux-text-highlight
+  gux-tag-popover-option --> gux-option
+  gux-option --> gux-text-highlight
   style gux-tag-popover-option fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

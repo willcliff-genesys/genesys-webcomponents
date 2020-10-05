@@ -165,14 +165,39 @@ gux-tag-popover-beta {
             margin: 0 auto;
           }
 
-          .gux-tag-popover-input {
+        // GUX-DROPDOWN component
+          gux-dropdown input {
             height: 24px;
-            margin: 4px 0;
             background-color: transparent;
+            padding: 0;
             outline: 0;
             border: none;
             width: 100%;
           }
+
+          gux-dropdown input:focus {
+            border: none!important;
+            box-shadow: none!important;
+          }
+
+          gux-dropdown div.gux-dropdown .select-field {
+            height: 24px;
+          }
+
+          gux-dropdown div.gux-dropdown .select-field .ghost {
+            background-color: transparent;
+            color: transparent;
+            border: none;
+          }
+
+          gux-text-field > div > div.gux-field {
+            height: 24px;
+          }
+
+          gux-dropdown div.gux-dropdown .select-field button.dropdown-indicator {
+            display: none;
+          }
+
 
           .gux-tag-popover-tags-container {
             display: flex;
