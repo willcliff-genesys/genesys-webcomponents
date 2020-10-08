@@ -21,7 +21,10 @@ function createLayout() {
           <button class="tablinks dark">Dark Theme</button>
           <button class="tablinks inherited">Inherited Theme</button>
         </div>
-        <div class="preview gux-light-theme"></div>
+        <div class="preview gux-light-theme">
+           <div class="example"></div>
+           <button class="code-toggle" title="Toggle Code Editor">&lt;/&gt;</button>
+        </div>
         <div class="editor"></div>
       </div>
       <gux-disclosure-button position="right">
@@ -45,6 +48,7 @@ function createLayout() {
   const lightThemeButton = template.querySelector('.tablinks.light');
   const darkThemeButton = template.querySelector('.tablinks.dark');
   const preview = template.querySelector('.preview');
+  const example = template.querySelector('.example');
   const attribute = template.querySelector('.attributes');
   const events = template.querySelector('.events');
   const notification = template.querySelector('.notification');
@@ -55,6 +59,7 @@ function createLayout() {
     lightThemeButton,
     darkThemeButton,
     preview,
+    example,
     attribute,
     events,
     notification,
@@ -82,6 +87,7 @@ export const bootstrap = (exampleCode, callback) => {
     lightThemeButton,
     darkThemeButton,
     preview,
+    example,
     attribute,
     events,
     notification,
@@ -101,9 +107,13 @@ export const bootstrap = (exampleCode, callback) => {
   );
 
   // Code Setter
+  preview
+    .querySelector('button.code-toggle')
+    .addEventListener('click', toggleCode);
+
   const attributesPanel = new AttributesPanel(attribute);
   const eventsPanel = new EventsPanel(events, preview, notification);
-  const updatePreview = createPreview(preview);
+  const updatePreview = createPreview(example);
 
   const updateCode = createEditor(editor, newCode => {
     let ast = parse5.parseFragment(newCode);
@@ -126,3 +136,10 @@ export const bootstrap = (exampleCode, callback) => {
 
   updateCode(exampleCode);
 };
+
+function toggleCode() {
+  const editor = document.querySelector(
+    '.component-viewer > .left-column > .editor'
+  );
+  editor.classList.toggle('collapsed');
+}

@@ -61,11 +61,27 @@ body {
       background-color: #393845;
       color: #fdfdfd;
     }
+
+    .code-toggle {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      font-family: monospace;
+      padding: var(--spacing-xs);
+      background-color: var(--gux-blue);
+      color: var(--gux-charcol-grey);
+      border-radius: var(--spacing-2xs) 0 0 0;
+      border: none;
+    }
   }
 
   > .editor {
     max-height: 400px;
     flex-grow: 1;
+  }
+
+  > .editor.collapsed {
+    max-height: 0;
   }
 }
 
