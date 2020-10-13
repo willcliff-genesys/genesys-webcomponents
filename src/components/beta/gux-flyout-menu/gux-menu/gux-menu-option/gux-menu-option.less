@@ -1,0 +1,31 @@
+@import (reference) '../../../../../style/color.less';
+@import (reference) '../gux-menu-common.less';
+
+gux-menu-option {
+  flex: 1 1 auto;
+  align-self: auto;
+  display: block;
+  height: 32px;
+  line-height: 32px;
+  padding: 0 16px;
+  background-color: @gux-off-white;
+  color: @gux-type;
+  width: @gux-menu-item-width;
+
+  &:hover {
+    background-color: @gux-dark-blue;
+    color: @gux-type-dark;
+  }
+
+  .gux-menu-option-button {
+    all: unset;
+    width: 100%;
+
+    .gux-menu-option-button-text {
+      display: block;
+      white-space: nowrap;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

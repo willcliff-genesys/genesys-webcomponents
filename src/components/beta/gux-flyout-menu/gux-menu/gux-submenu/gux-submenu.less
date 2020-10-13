@@ -1,0 +1,65 @@
+@import (reference) '../../../../../style/color.less';
+@import (reference) '../gux-menu-common.less';
+
+gux-submenu {
+  display: block;
+  flex: 1 1 auto;
+  align-self: auto;
+
+  .gux-submenu-label {
+    height: 32px;
+    line-height: 32px;
+    padding: 0 16px;
+    background-color: @gux-off-white;
+    color: @gux-type;
+    width: @gux-menu-item-width;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+    align-items: center;
+
+    &:hover {
+      background-color: @gux-dark-blue;
+      color: @gux-type-dark;
+    }
+
+    .gux-submenu-label-text {
+      order: 0;
+      flex: 1 1 auto;
+      align-self: auto;
+      white-space: nowrap;
+      overflow-x: hidden;
+      text-overflow: ellipsis;
+      margin-right: 12px;
+    }
+
+    .gux-submenu-open-icon {
+      height: 10px;
+      width: 10px;
+      order: 0;
+      flex: 0 0 auto;
+      align-self: auto;
+    }
+  }
+
+  .gux-submenu-popup {
+    visibility: hidden;
+    border: 1px solid #dae1e8;
+    border-radius: 2px;
+    padding: 8px 0;
+    background-color: @gux-off-white;
+    color: @gux-type;
+
+    .gux-submenu-content {
+      position: relative;
+    }
+  }
+
+  &:hover {
+    > .gux-submenu-popup {
+      visibility: visible;
+    }
+  }
+}
