@@ -3,12 +3,14 @@ import {
   Component,
   Element,
   h,
+  Host,
   JSX,
   Listen,
-  Prop,
   State,
   Watch
 } from '@stencil/core';
+
+import { HTMLGuxMenuItemElement, hideDelay } from './gux-menu/gux-menu.common';
 
 @Component({
   styleUrl: 'gux-flyout-menu.less',
@@ -17,59 +19,105 @@ import {
 export class GuxFlyoutMenu {
   private hideDelayTimeout: NodeJS.Timer;
   private popperInstance: Instance;
-  private forElement: HTMLElement;
-  private mouseenterHandler = () => this.show();
-  private mouseleaveHandler = () => this.hide();
+  private targetElement: HTMLDivElement;
+  private menuElement: HTMLDivElement;
+  private menuContentElement: HTMLDivElement;
 
-  @Element() private element: HTMLElement;
+  @Element()
+  private root: HTMLGuxMenuOptionElement;
 
-  /**
-   * Indicates the id of the element the flyout-menu should anchor to
-   */
-  @Prop()
-  for: string;
+  @State()
+  private isShown: boolean = false;
 
   @Watch('isShown')
-  watchHidden() {
-    if (this.popperInstance) {
-      this.popperInstance.forceUpdate();
+  forceUpdate(isShown: boolean) {
+    if (isShown) {
+      if (this.popperInstance) {
+        this.popperInstance.forceUpdate();
+      }
     }
   }
 
-  @State()
-  isShown: boolean = false;
+  @Listen('keydown')
+  onKeydown(event: KeyboardEvent): void {
+    event.stopPropagation();
+
+    if (this.isShown) {
+      switch (event.key) {
+        case 'Escape':
+          this.hide();
+          this.root.focus();
+          return;
+
+        case 'ArrowDown':
+          this.focusOnMenu();
+          return;
+      }
+    }
+
+    switch (event.key) {
+      case 'Enter':
+        this.show();
+        return;
+    }
+  }
+
+  @Listen('mouseenter')
+  onmouseenter() {
+    this.show();
+  }
+
+  @Listen('mouseleave')
+  onMouseleave() {
+    this.hide();
+  }
 
   @Listen('click')
   onClick() {
+    this.hide();
+  }
+
+  @Listen('focusin')
+  onFocusin() {
+    this.show();
+  }
+
+  @Listen('focusout')
+  onFocusout() {
+    this.hide();
+  }
+
+  private show(): void {
+    clearTimeout(this.hideDelayTimeout);
+    this.isShown = true;
+  }
+
+  private hide(): void {
     if (this.isShown) {
-      this.hide();
+      this.hideDelayTimeout = setTimeout(() => {
+        this.isShown = false;
+      }, hideDelay);
     }
   }
 
   private runPopper(): void {
-    if (this.forElement) {
-      this.popperInstance = createPopper(this.forElement, this.element, {
-        modifiers: [
-          {
-            name: 'offset',
-            options: {
-              offset: [0, 7]
-            }
-          },
-          {
-            name: 'arrow',
-            options: {
-              padding: 16 // 16px from the edges of the popper
-            }
+    this.popperInstance = createPopper(this.targetElement, this.menuElement, {
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, 7]
           }
-        ],
-        placement: 'bottom-start'
-      });
-    } else {
-      console.error(
-        `GUX-FlyoutMenu: invalid element supplied to 'for': "${this.for}"`
-      );
-    }
+        },
+        {
+          name: 'arrow',
+          options: {
+            padding: 16 // 16px from the edges of the popper
+          }
+        }
+      ],
+      placement: 'bottom-start'
+    });
   }
 
   private destroyPopper(): void {
@@ -79,26 +127,19 @@ export class GuxFlyoutMenu {
     }
   }
 
-  private show(): void {
-    clearTimeout(this.hideDelayTimeout);
-    this.isShown = true;
-  }
+  private focusOnMenu(): void {
+    if (this.menuContentElement.contains(document.activeElement)) {
+      return;
+    }
 
-  private hide(): void {
-    this.hideDelayTimeout = setTimeout(() => {
-      this.isShown = false;
-    }, 100);
-  }
+    const menu = this.menuContentElement.querySelector('gux-menu');
+    const menuItems = Array.from(menu.children);
+    const nextFocusableElement = menuItems[0] as HTMLGuxMenuItemElement;
 
-  async componentWillLoad(): Promise<void> {
-    this.forElement = document.getElementById(this.for);
+    nextFocusableElement.guxFocus();
   }
 
   componentDidLoad(): void {
-    this.forElement.addEventListener('mouseenter', this.mouseenterHandler);
-    this.forElement.addEventListener('mouseleave', this.mouseleaveHandler);
-    this.element.addEventListener('mouseenter', this.mouseenterHandler);
-    this.element.addEventListener('mouseleave', this.mouseleaveHandler);
     this.runPopper();
   }
 
@@ -108,17 +149,26 @@ export class GuxFlyoutMenu {
 
   render(): JSX.Element {
     return (
-      <div
-        class={{
-          'gux-flyout-menu-wrapper': true,
-          'gux-shown': this.isShown
-        }}
-      >
-        <div class="gux-arrow" data-popper-arrow />
-        <div class="gux-flyout-menu-content">
-          <slot />
+      <Host tabIndex={1}>
+        <div ref={el => (this.targetElement = el)}>
+          <slot name="target" />
         </div>
-      </div>
+        <div
+          ref={el => (this.menuElement = el)}
+          class={{
+            'gux-flyout-menu-wrapper': true,
+            'gux-shown': this.isShown
+          }}
+        >
+          <div
+            class="gux-flyout-menu-content"
+            ref={el => (this.menuContentElement = el)}
+          >
+            <slot name="menu" />
+          </div>
+          <div class="gux-arrow" data-popper-arrow />
+        </div>
+      </Host>
     );
   }
 }

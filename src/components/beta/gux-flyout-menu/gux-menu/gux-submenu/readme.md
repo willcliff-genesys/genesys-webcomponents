@@ -12,6 +12,19 @@
 | `label`  | `label`   |             | `string` | `undefined` |
 
 
+## Methods
+
+### `guxFocus() => Promise<void>`
+
+Focus on the components button element
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+
 ## Dependencies
 
 ### Depends on
